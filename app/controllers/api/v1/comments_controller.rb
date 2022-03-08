@@ -15,7 +15,8 @@ class Api::V1::CommentsController < ApplicationController
         if @article
             @comment = @article.comments.new(comment_params)
             if @comment.save
-                redirect_to api_v1_article_comments_path
+                # redirect_to api_v1_article_comments_path
+                render json:@comment
             end
         else
             render json: { error: "Couldn't find article with id #{params[:article_id]}" }
@@ -33,7 +34,8 @@ class Api::V1::CommentsController < ApplicationController
     def update
         if @comment
             @comment.update(comment_params)
-            redirect_to api_v1_article_comment_path(@article, @comment)
+            # redirect_to api_v1_article_comment_path(@article, @comment)
+            render json:@comment
         else
             render json: { error: "Couldn't find comment with id #{params[:id]}" }
         end
@@ -63,7 +65,7 @@ class Api::V1::CommentsController < ApplicationController
 
     private
     def comment_params
-        params.permit(:comment, :date_of_comment)
+        params.require(:comment).permit(:comment, :date_of_comment)
     end
 
     def find_comment

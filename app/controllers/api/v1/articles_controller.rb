@@ -9,7 +9,8 @@ class Api::V1::ArticlesController < ApplicationController
   def create
     @new_article = Article.new(article_params)
     if @new_article.save
-      redirect_to api_v1_articles_path
+      # redirect_to api_v1_articles_path
+      render json:@new_article
     end
   end
 
@@ -24,7 +25,8 @@ class Api::V1::ArticlesController < ApplicationController
   def update
     if @article
       @article.update(article_params)
-      redirect_to api_v1_article_path(@article)
+      # redirect_to api_v1_article_path(@article)
+      render json:@article
     else
       render json: { error: "Couldn't find article with id #{params[:id]}" }
     end
@@ -58,7 +60,7 @@ class Api::V1::ArticlesController < ApplicationController
 
   private
   def article_params
-    params.permit(:title, :body, :release_date)
+    params.require(:article).permit(:title, :body, :release_date)
   end
 
   def find_article

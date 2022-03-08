@@ -6,6 +6,6 @@ Rails.application.routes.draw do
             end
         end
     end
-    post 'search_article', to: "api/v1/articles#search_article", :as => :search_article
-    post 'search_comment', to: "api/v1/comments#search_comment", :as => :search_comment
+    get 'search_article', to: "api/v1/articles#search_article", :as => :search_article
+    get 'search_comment', to: "api/v1/comments#search_comment", :as => :search_comment
 end
